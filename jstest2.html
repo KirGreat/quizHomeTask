@@ -6,28 +6,34 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<script src="js/config.js"></script>
-	<script src="js/index.js"></script>
+	<script src="js/moduleExample.js"></script>
 	<title>Document</title>
 </head>
 
 <body>
-
-	<form name='quiz'>
+	<form name='quiz' id="quiz">
 		<ol>
 			<script>
-				for (var q = 0; q < questions.length; ++q) {
-					var question = questions[q];
-					var idx = 1 + q;
-
-					document.writeln('<li><span class="quest">' + question.text + '</span><br/>');
-					for (i in question.answers) {
-						document.writeln('<input type=radio name="q' + idx + '" value="' + i + '"onClick="engine(' + q + ', this.value)">' + question.answers[i] + '<br/>');
-					}
-				}
+				questions.forEach(function (quest, i) {
+					document.writeln('<li><span class="quest">' + quest.text + '</span><br/>');
+					quest.answers.forEach(function (item, j) {
+						document.writeln(
+							`<input
+							 type=radio
+							 name=q${i}
+							 data-question=${i}
+							 value=${j}
+							 class="radio-btn"
+							 />${item}
+							 <br/>
+							 `
+						);
+					});
+				});
 			</script>
 		</ol>
-		<input type="button" onClick="score()" value="Check results" />
-
+		<input type="button" class="check-res" value="Check results" />
+		<input type="button" class="clear-res" value="Clear results" />
 	</form>
 </body>
 
